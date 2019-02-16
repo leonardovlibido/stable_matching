@@ -1,19 +1,4 @@
-
-class Matching:
-    def __init__(self, matches=None):
-        pass
-
-    def __str__(self):
-        pass
-
-    def add_match(self, match):
-        pass
-
-    def delete_match(self, match):
-        pass
-
-    def is_stable(self, a_ranks, b_ranks):
-        pass
+from matching import Matching
 
 
 class StableMarriageMatcher:
@@ -21,22 +6,6 @@ class StableMarriageMatcher:
         pass
 
     def match(self):
-        pass
+        matching = Matching()
+        return matching
 
-
-def main():
-    men_ranks = {'abe' : ['ada', 'bea', 'cee'],
-                 'ben' : ['bea', 'ada', 'cee'],
-                 'che' : ['bea', 'cee', 'ada']}
-
-    women_ranks = {'ada' : ['che', 'ben', 'abe'],
-                   'bea' : ['ben', 'abe', 'che'],
-                   'cee' : ['che', 'ben', 'abe']
-                   }
-
-    matcher = StableMarriageMatcher(men_ranks, women_ranks)
-    matches = matcher.match()
-
-
-if __name__ == "__main__":
-    main()
