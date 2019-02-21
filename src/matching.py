@@ -9,9 +9,15 @@ class Matching:
         self.matches_men = {}
         self.matches_women = {}
 
-        for key in men_ranks:
+        for key in self.men_ranks:
             self.matches_men[key] = None
-        for key in women_ranks:
+        for key in self.women_ranks:
+            self.matches_women[key] = None
+
+    def unmatch_all(self):
+        for key in self.men_ranks:
+            self.matches_men[key] = None
+        for key in self.women_ranks:
             self.matches_women[key] = None
 
     def str_matches_men(self):
@@ -57,7 +63,13 @@ class Matching:
         else:
             return -1
 
+    def is_complete(self):
+        return None not in self.matches_men.values()
+
     def is_stable(self):
+        if not self.is_complete():
+            return False
+
         for man in self.matches_men:
             match_rank = self.man_rank_of_match(man)
             man_ranks = self.men_ranks[man][:match_rank]
