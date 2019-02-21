@@ -1,0 +1,95 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper]{article}
+
+\usepackage{color}
+\usepackage{url}
+\usepackage[T2A]{fontenc} % enable Cyrillic fonts
+\usepackage[utf8]{inputenc} % make weird characters work
+\usepackage{graphicx}
+\usepackage{listings}
+
+\usepackage[english,serbian]{babel}
+
+\usepackage[unicode]{hyperref}
+\hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
+
+%\newtheorem{primer}{Пример}[section] %ćirilični primer
+\newtheorem{primer}{Primer}[section]
+
+\begin{document}
+
+\title{Problem Stabilnog Uparivanja\\ \small{Seminarski rad u okviru kursa\\Konstrukcija i analiza algoritama II\\ Matematički fakultet}}
+
+\author{Rastko Đorđević, 1091/2017\\ rastko\_djordjevic@matf.bg.ac.rs}
+\maketitle
+
+\abstract{
+Problem stabilnog uparivanja (eng. Stable matching problem / Stable marriage problem) ima značaja u oblastima matematike, ekonomije i informatike. U ovom radu će biti opisan problem, algoritam za njegovo rešavanje, i implementacija datog algoritma u programskom jeziku Python.}
+
+\tableofcontents
+
+\newpage
+
+
+
+\section{Postavka problema}
+
+Kod problema stabilnog uparivanja zadatak je pronaći stabilno uparivanje između dva skupa elemenata. Za svaki element oba skupa data je lista preferenci elemenata iz suprotnog skupa. Za uparivanje kažemo da nije stabilno ako postoji element $a$ skupa A, takav da za bilo koji element $b$ skupa B koji ima veći prioritet od elementa sa kojim je A trenutno uparen važi da element $a$ takođe ima veći prioritet od elementa sa kojim je trenutno uparen element $b$. 
+
+Ovaj problem se često formuliše kao problem stabilnog braka na sledeći način:
+Za datih $n$ muškaraca i $n$ žena gde je svaka osoba ocenila sve osobe suprotnog pola, treba venčati sve muškarce i žene tako da ne postoje 2 osobe suprotnog pola koje bi radije napustile svoje trenutne partnere i oženili se jedno sa drugim. Kada ne postoji takav par osoba za skup brakova kažemo da je stabilan.
+
+\section{Gale-Shapley algoritam}
+
+David Gejl (eng. David Gale) i Lojd Šepli (Lloyd Shapley) su 1962. godine dokazali da je za jednak broj muškaraca i žena uvek moguće rešiti problem stabilnog braka tako da svi brakovi budu stabilni. Njihov algoritam se sastoji od niza rundi.
+
+U prvoj rundi svaki muškarac koji nije veren prosi ženu koju najviše voli. Potom svaka žena prihvata veridbu muškarca kojeg najviše voli od onih koji su je zaprosili, a ostale odbija.
+
+U svakoj sledećoj rundi se dešava sledeće. Prvo svaki slobodan muškarac prosi ženu koju najviše voli od onih koje još nije prosio. Potom svaka žena koja nije verena prihvata veridbu muškarca kojeg najviše voli. Sve verene žene prihvataju veridbu samo ako više vole muškarca koji ju je zaprosio od trenutnog verenika i u tom slučaju ta veridba se raskida i taj verenik postaje slobodan. 
+
+Ovaj proces se ponavlja dok svi nisu vereni. Složenost algoritma je $O(n^2)$ gde je n broj muškaraca. 
+
+Dati algoritam garantuje da će svi biti oženjeni. Pretpostavimo da postoje muškarac $a$ i žena $b$ koji nisu oženjeni na kraju algoritma. Muškarac je zaprosio sve žene pa samim tim i ženu $b$. Pošto nisu oženjeni to znači da žena $b$ ili nije prihvatila njegovu prosidbu zbog nekog drugog muškarca, ili je prihvatila prosidbu pa je naknadno ostavila muškarca $b$ zbog nekog drugog muškarca. U oba slučaja žena $b$ mora biti oženjena, što je suprotno od početne pretpostavke da žena $b$ nije oženjena.
+
+Algoritam takođe garantuje da će su svi brakovi na kraju algoritma stabilni. Pretpostavimo da postoje muškarac $a$ i žena $b$ koji su oženjeni nekim drugim osobama i koji više vole jedno drugo od svojih trenutnih partnera. Pošto muškarac $b$ više voli ženu $a$ od svoje trenutne partnerke to znači da je zaprosio ženu $a$ pre nego što je zaprosio svoju partnerku. Pošto je ženu $b$ zaprosio muškarac $a$ to znači da konačnog muškarca za kojeg se verila voli više od muškarca $a$ što je u kontradikciji sa početnom pretpostavkom da žena $b$ više voli muškarca $a$ od trenutnog partnera.
+
+\newpage
+
+Pseudo-kod algoritma:
+\begin{verbatim}
+Algoritam stabilno_uparivanje(M, Ž)
+Ulaz:
+	M - skup muškaraca M, sa uređenom listom preferiranih žena
+	Ž - skup žena Ž, sa uređenom listom preferiranih muškaraca
+Izlaz:
+	SU - stabilno uparivanje elemenata iz skupova M i Ž
+begin
+    Inicijalizuj sve muškace i žene da budu slobodni
+    while postoji slobodan muškarac m koji još nije zaprosio sve žene
+        ž = prva žena na listi preferenci muškarca m koju m još nije zaprosio
+        if ž je slobodna
+            upari(m, ž)
+        else neki par (m', ž) već postoji
+            if ž više voli m od m'
+                m' postaje slobodan
+                upari(m, ž)
+end
+\end{verbatim}
+
+
+\subsection{Optimalnost rešenja}
+U opštem slučaju stabilno uparivanje nije jedinstveno
+
+\subsection{Implementacija}
+
+\section{Primene}
+
+\section{Slični problemi}
+
+\addcontentsline{toc}{section}{Literatura}
+\appendix
+\bibliography{seminarski} 
+\bibliographystyle{plain}
+
+\end{document}
