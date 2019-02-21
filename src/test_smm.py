@@ -21,10 +21,12 @@ def init_preferences():
 
 def test_gale_shapley():
     men_ranks, women_ranks = init_preferences()
+
     matcher = StableMarriageMatcher(men_ranks, women_ranks)
     assert(matcher.matching.is_stable() is False)
     matcher.find_matching()
     assert(matcher.matching.is_stable() is True)
+
     print("gale_shapley: OK!")
 
 

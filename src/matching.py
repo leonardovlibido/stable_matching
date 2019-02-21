@@ -63,6 +63,15 @@ class Matching:
         else:
             return -1
 
+    def woman_is_free(self, woman):
+        return self.matches_women[woman] is None
+
+    def man_is_free(self, man):
+        return self.matches_men[man] is None
+
+    def woman_prefers_new_match(self, woman, new_man):
+        return self.woman_rank_of_match(woman) > self.woman_rank_of_man(woman, new_man)
+
     def is_complete(self):
         return None not in self.matches_men.values()
 
