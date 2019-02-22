@@ -89,7 +89,7 @@ Sa druge strane, žene, to jest grupa koja prima prosidbe može "prevariti" algo
 
 Algoritam je implementiran u programskom jeziku Python. Pošto je složenost algoritma kvadratna, algoritam je upoređen sa verzijom sortiranja mehurom (eng. bubble sort). Kao što se može videti na grafu \ref{fig1}, izvršavanje algoritma je približno jednako izvršavanju sortiranja mehurom 5 puta. Takođe možemo primetiti da priprema podataka zahteva veliku količinu podataka i to približno 5 puta više od izvršavanja algoritma. To je slučaj zbog izbora struktura listi preferenci, koje zahtevaju veliki broj kopiranja ogromnih nizova. Ovo bi se moglo optimizovati ali tome nije dat ključni prioritet. 
 
-Iako optimizacija nije bila najveći prioritet, uzeta je u obzir pri implementaciji algoritma. Na maksimalnom broju mesta su umesto petlji, koje su poznato spore u Pythonu, korišćeni drugi konstrukti koji se direktno prevode do C koda. 
+Iako optimizacija nije bila najveći prioritet, uzeta je u obzir pri implementaciji algoritma. Na maksimalnom broju mesta korišćeni konstrukti u pythonu koji se direktno prevode do C koda. 
 
 
 \begin{figure}
@@ -99,6 +99,10 @@ Iako optimizacija nije bila najveći prioritet, uzeta je u obzir pri implementac
 	\label{fig1}
 \end{figure}
 \section{Primene}
+
+Algoritam za pronalazak stabilnog uparivanja se može primeniti u raznim situacijama. Najpoznatija primena je verovatno uparivanje diplomiranih medicinara i njihovih prvih bolnica. 
+
+Još jedna važna primena je uparivanje korisnika interneta i servera koji distribuiraju servise. Mreže za dostavu sadržaja (eng. Content deliverz networks) koje čine ključni deo interneta izvršavaju ovaj algoritam svakih desetak sekundi kako bi omogućili svim korisnicima brz pristum željenom sadržaju.
 
 \subsection{Praktična pitanja}
 Razmatraćemo praktične probleme primene gejl-šepli algoritma nad problemom upisivanja studenata u koledže sa kojim su se i borili autori originalnog rada. Ovo je malo izmenjena verzija početnog problema, gde skup A može biti uparen sa više elemenata skupa B. Rešenje ovog problema je veoma slično već opisanom algoritmu. Nas zanima koliko je ovaj algoritam zaista upotrebljiv za spajanje studenata sa željenim univerzitetima i obratno.
