@@ -35,14 +35,17 @@ Problem stabilnog uparivanja \textit{(eng. Stable matching problem / Stable marr
 
 \section{Postavka problema}
 
-Kod problema stabilnog uparivanja zadatak je pronaći stabilno uparivanje između dva skupa elemenata. Za svaki element oba skupa data je lista preferenci elemenata iz suprotnog skupa. Za uparivanje kažemo da nije stabilno ako postoji element $a$ skupa A, takav da za bilo koji element $b$ skupa B koji ima veći prioritet od elementa sa kojim je A trenutno uparen važi da element $a$ takođe ima veći prioritet od elementa sa kojim je trenutno uparen element $b$. 
+Kod problema stabilnog uparivanja zadatak je pronaći stabilno uparivanje između dva skupa elemenata. Za svaki element oba skupa data je lista preferenci elemenata iz suprotnog skupa. Za uparivanje kažemo da nije stabilno ako važi sledeće:
+\begin{enumerate}
+	\item Postoji element $a$ skupa A koji preferira element $b$ skupa B više od svog trenutnog para
+	\item Element $b$ takođe preferira element $a$ više od svog trenutnog para
+\end{enumerate}
 
-Ovaj problem se često formuliše kao problem stabilnog braka na sledeći način:
-Za datih $n$ muškaraca i $n$ žena gde je svaka osoba ocenila sve osobe suprotnog pola, treba venčati sve muškarce i žene tako da ne postoje 2 osobe suprotnog pola koje bi radije napustile svoje trenutne partnere i oženili se jedno sa drugim. Kada ne postoji takav par osoba za skup brakova kažemo da je stabilan.
+Ovaj problem se često formuliše kao problem stabilnog braka na sledeći način: Za datih $n$ muškaraca i $n$ žena gde je svaka osoba ocenila sve osobe suprotnog pola, treba venčati sve muškarce i žene tako da ne postoje 2 osobe suprotnog pola koje bi radije napustile svoje trenutne partnere i oženili se jedno sa drugim. Kada ne postoji takav par osoba za skup brakova kažemo da je stabilan.
 
-\section{Gale-Shapley algoritam}
+\section{Gejl-Šepli algoritam}
 
-David Gejl \textit{(eng. David Gale)} i Lojd Šepli (Lloyd Shapley) su 1962. godine dokazali da je za jednak broj muškaraca i žena uvek moguće rešiti problem stabilnog braka tako da svi brakovi budu stabilni\cite{galeShapley}. Njihov algoritam se sastoji od niza rundi:
+David Gejl \textit{(eng. David Gale)} i Lojd Šepli (Lloyd Shapley) su 1962. godine dokazali da je za jednak broj muškaraca i žena uvek moguće rešiti problem stabilnog braka tako da sve osobe budu u braku i da takvi brakovi budu stabilni\cite{galeShapley}. Njihov algoritam se sastoji od niza rundi:
 
 U prvoj rundi svaki muškarac koji nije veren prosi ženu koju najviše voli. Potom svaka žena prihvata veridbu muškarca kojeg najviše voli od onih koji su je zaprosili, a ostale odbija.
 
@@ -50,9 +53,9 @@ U svakoj sledećoj rundi se dešava sledeće: Prvo svaki slobodan muškarac pros
 
 Ovaj proces se ponavlja dok svi nisu vereni. Složenost algoritma je $O(n^2)$ gde je n broj muškaraca, što su pokazali Ivama \textit{(eng. Iwama)} i Mijazaki \textit{(eng. Miyazaki)}\cite{slozenost}. 
 
-Dati algoritam garantuje da će svi biti oženjeni. Pretpostavimo da postoje muškarac $a$ i žena $b$ koji nisu oženjeni na kraju algoritma. Muškarac je zaprosio sve žene pa samim tim i ženu $b$. Pošto $a$ i $b$ nisu oženjeni to znači da žena $b$ ili nije prihvatila njegovu prosidbu zbog nekog drugog muškarca, ili je prihvatila prosidbu pa je naknadno ostavila muškarca $b$ zbog nekog drugog muškarca. U oba slučaja žena $b$ mora biti oženjena, što je suprotno od početne pretpostavke da žena $b$ nije oženjena.
+Dati algoritam garantuje da će svi biti u braku. Pretpostavimo da postoje muškarac $a$ i žena $b$ koji nisu u braku na kraju algoritma. Muškarac je zaprosio sve žene pa samim tim i ženu $b$. Pošto $a$ i $b$ nisu u braku to znači da žena $b$ ili nije prihvatila njegovu prosidbu zbog nekog drugog muškarca, ili je prihvatila prosidbu pa je naknadno ostavila muškarca $b$ zbog nekog drugog muškarca. U oba slučaja žena $b$ mora biti u braku, što je suprotno od početne pretpostavke da žena $b$ nije u braku.
 
-Algoritam takođe garantuje da će su svi brakovi na kraju algoritma stabilni. Pretpostavimo da postoje muškarac $a$ i žena $b$ koji su oženjeni nekim drugim osobama i koji više vole jedno drugo od svojih trenutnih partnera. Pošto muškarac $a$ više voli ženu $b$ od svoje trenutne partnerke to znači da je zaprosio ženu $b$ pre nego što je zaprosio svoju partnerku. Pošto je ženu $b$ zaprosio muškarac $a$ to znači da konačnog muškarca za kojeg se verila voli više od muškarca $a$ što je u kontradikciji sa početnom pretpostavkom da žena $b$ više voli muškarca $a$ od svog trenutnog partnera.
+Algoritam takođe garantuje da će su svi brakovi na kraju algoritma stabilni. Pretpostavimo da postoje muškarac $a$ i žena $b$ koji su u braku sa nekim drugim osobama i koji više vole jedno drugo od svojih trenutnih partnera. Pošto muškarac $a$ više voli ženu $b$ od svoje trenutne partnerke to znači da je zaprosio ženu $b$ pre nego što je zaprosio svoju partnerku. Pošto je ženu $b$ zaprosio muškarac $a$ to znači da konačnog muškarca za kojeg se verila voli više od muškarca $a$ što je u kontradikciji sa početnom pretpostavkom da žena $b$ više voli muškarca $a$ od svog trenutnog partnera.
 
 \newpage
 
@@ -105,7 +108,7 @@ Algoritam za pronalazak stabilnog uparivanja se može primeniti u raznim situaci
 Još jedna važna primena je uparivanje korisnika interneta i servera koji distribuiraju servise. Mreže za dostavu sadržaja \textit{(eng. Content delivery networks)} koje čine ključni deo interneta izvršavaju ovaj algoritam svakih desetak sekundi kako bi omogućili svim korisnicima brz pristup željenom sadržaju.
 
 \subsection{Praktična pitanja}
-Razmatraćemo praktične probleme primene Gejl-Šepli algoritma nad problemom upisivanja studenata u univerzitete sa kojim su se i borili autori originalnog rada. Ovo je malo izmenjena verzija početnog problema, gde skup A može biti uparen sa više elemenata skupa B. Rešenje ovog problema je veoma slično već opisanom algoritmu. Nas zanima koliko je ovaj algoritam zaista upotrebljiv za spajanje studenata sa željenim univerzitetima i obratno.
+Razmatraćemo praktične probleme primene Gejl-Šepli algoritma nad problemom upisivanja studenata u univerzitete sa kojim su se i borili autori originalnog rada. Ovo je malo izmenjena verzija početnog problema, gde svaki element skupa A može biti uparen sa više elemenata skupa B. Rešenje ovog problema je veoma slično već opisanom algoritmu. Nas zanima koliko je ovaj algoritam zaista upotrebljiv za spajanje studenata sa željenim univerzitetima i obratno.
 
 Prvi očigledan problem je što algoritam zahteva dosta komunikacije napred i nazad ako bi se pratio doslovno. Jednostavno rešenje bi bilo skupiti sve liste preferenci na jedno mesto i potom izvršiti algoritam nad svim podacima. Problem sa ovim rešenjem je što bi bila neohodna ogromna količina vremena koji bi morao da uloži svaki od učesnika kako bi napravio iscrpnu listu preferenci svih univerziteta i obratno. Tako da bi se morao napraviti neki kompromis, na primer kandidati mogu poslati zahteve za samo svojih 5 omiljenih izbora.
 
